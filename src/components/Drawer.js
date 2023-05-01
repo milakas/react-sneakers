@@ -1,4 +1,12 @@
+import { useEffect } from 'react';
+
 function Drawer({ onClose, items = [] }) {
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'visible';
+    };
+  });
   return (
     <div className="overlay">
       <div className="drawer">
