@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styles from './Card.module.scss';
 import ContentLoader from 'react-content-loader';
 import AppContext from '../../context';
@@ -10,11 +10,9 @@ function Card({
   imageUrl,
   addToCart,
   addToFavourites,
-  favourite = false,
   loading = false,
 }) {
-  const { isItemAdded } = React.useContext(AppContext);
-  const [isFavourite, setIsFavourite] = useState(favourite);
+  const { isItemAdded, isItemFavorite } = React.useContext(AppContext);
 
   const onClickPlus = () => {
     addToCart({ id, title, imageUrl, price });
@@ -22,7 +20,6 @@ function Card({
 
   const onClickFavourite = () => {
     addToFavourites({ id, title, imageUrl, price });
-    setIsFavourite(!isFavourite);
   };
 
   return (
@@ -46,7 +43,7 @@ function Card({
         <>
           <div className={styles.favourite} onClick={onClickFavourite}>
             <img
-              src={isFavourite ? '/img/liked.svg' : '/img/unliked.svg'}
+              src={isItemFavorite(id) ? '/img/liked.svg' : '/img/unliked.svg'}
               alt="unliked"
             />
           </div>

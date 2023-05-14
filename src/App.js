@@ -83,8 +83,14 @@ function App() {
     return cartItems.some((obj) => Number(obj.id) === Number(id));
   };
 
+  const isItemFavorite = (id) => {
+    return favorites.some((obj) => Number(obj.id) === Number(id));
+  };
+
   return (
-    <AppContext.Provider value={{ items, cartItems, favorites, isItemAdded }}>
+    <AppContext.Provider
+      value={{ items, cartItems, favorites, isItemAdded, isItemFavorite }}
+    >
       <div className="wrapper clear">
         {cartOpened && (
           <Drawer
