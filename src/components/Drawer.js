@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-function Drawer({ onClose, items = [], onRemove }) {
+const Drawer = ({ onClose, items = [], onRemove }) => {
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     return () => {
@@ -24,24 +24,25 @@ function Drawer({ onClose, items = [], onRemove }) {
           <>
             <div className="items">
               {items.map((obj) => (
-                <>
-                  <div className="cartItem d-flex align-center mb-20">
-                    <div
-                      style={{ backgroundImage: `url(${obj.imageUrl})` }}
-                      className="cartItemImg"
-                    ></div>
-                    <div className="flex mr-20">
-                      <p className="mb-5">{obj.title}</p>
-                      <b>{obj.price} руб.</b>
-                    </div>
-                    <img
-                      onClick={() => onRemove(obj.id)}
-                      className="removeBtn"
-                      src="/img/btn-remove.svg"
-                      alt="Remove"
-                    />
+                <div
+                  key={obj.id}
+                  className="cartItem d-flex align-center mb-20"
+                >
+                  <div
+                    style={{ backgroundImage: `url(${obj.imageUrl})` }}
+                    className="cartItemImg"
+                  ></div>
+                  <div className="flex mr-20">
+                    <p className="mb-5">{obj.title}</p>
+                    <b>{obj.price} руб.</b>
                   </div>
-                </>
+                  <img
+                    onClick={() => onRemove(obj.id)}
+                    className="removeBtn"
+                    src="/img/btn-remove.svg"
+                    alt="Remove"
+                  />
+                </div>
               ))}
             </div>
             <div className="cartTotalBlock">
@@ -84,6 +85,6 @@ function Drawer({ onClose, items = [], onRemove }) {
       </div>
     </div>
   );
-}
+};
 
 export default Drawer;

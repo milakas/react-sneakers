@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 
-function Header({ onClickCart }) {
+const Header = ({ onClickCart }) => {
   return (
     <header className="d-flex justify-between align-center flex-wrap p-40">
-      <Link to="/" exact>
+      <Link to="/" exact="true">
         <div className="d-flex align-center">
           <img width={40} height={40} src="/img/logo.png" alt="logo" />
           <div>
@@ -19,7 +19,7 @@ function Header({ onClickCart }) {
           <span>1205 руб.</span>
         </li>
         <li className="mr-15 cu-p">
-          <Link to="/favourites" exact>
+          <Link to="/favourites" exact="true">
             <img width={18} height={18} src="/img/heart.svg" alt="Закладки" />
           </Link>
         </li>
