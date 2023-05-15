@@ -9,17 +9,20 @@ function Card({
   price,
   imageUrl,
   addToCart,
-  addToFavourites,
+  onFavourite,
+  favorited = false,
   loading = false,
 }) {
   const { isItemAdded, isItemFavorite } = React.useContext(AppContext);
-
+  const [isFavorite, setIsFavorite] = React.useState(favorited);
+  const obj = { id, parentId: id, title, imageUrl, price };
   const onClickPlus = () => {
-    addToCart({ id, title, imageUrl, price });
+    addToCart(obj);
   };
 
   const onClickFavourite = () => {
-    addToFavourites({ id, title, imageUrl, price });
+    onFavourite(obj);
+    setIsFavorite(!isFavorite);
   };
 
   return (
@@ -42,13 +45,18 @@ function Card({
       ) : (
         <>
           <div className={styles.favourite} onClick={onClickFavourite}>
-            {addToFavourites && (
+            {onFavourite && (
               <img
-                src={isItemFavorite(id) ? '/img/liked.svg' : '/img/unliked.svg'}
+                src={
+                  isItemFavorite(id) || isFavorite
+                    ? '/img/liked.svg'
+                    : '/img/unliked.svg'
+                }
                 alt="unliked"
               />
             )}
           </div>
+
           <img width="100%" height={135} src={imageUrl} alt="Sneakers" />
           <h5>{title}</h5>
           <div className="d-flex justify-between align-center">
