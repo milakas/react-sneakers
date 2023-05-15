@@ -6,6 +6,7 @@ import { Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import Favourites from './pages/Favourites';
 import AppContext from './context';
+import Orders from './pages/Orders';
 
 function App() {
   const [items, setItems] = useState([]);
@@ -97,6 +98,8 @@ function App() {
         isItemFavorite,
         setCartOpened,
         setCartItems,
+        onFavourite,
+        onAddToCart,
       }}
     >
       <div className="wrapper clear">
@@ -125,16 +128,8 @@ function App() {
               />
             }
           />
-          <Route
-            path="/favourites"
-            exact="true"
-            element={
-              <Favourites
-                addToFavourites={onFavourite}
-                onAddToCart={onAddToCart}
-              />
-            }
-          />
+          <Route path="/favourites" exact="true" element={<Favourites />} />
+          <Route path="/orders" exact="true" element={<Orders />} />
         </Routes>
       </div>
     </AppContext.Provider>

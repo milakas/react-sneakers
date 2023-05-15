@@ -2,7 +2,9 @@ import React from 'react';
 import Card from '../components/Card';
 import AppContext from '../context';
 
-const Favourites = ({ addToFavourites, onAddToCart }) => {
+const Favourites = () => {
+  const { onFavourite, onAddToCart } = React.useContext(AppContext);
+
   const { favorites } = React.useContext(AppContext);
 
   return (
@@ -16,7 +18,7 @@ const Favourites = ({ addToFavourites, onAddToCart }) => {
           <Card
             key={index}
             favourite={true}
-            addToFavourites={addToFavourites}
+            addToFavourites={onFavourite}
             addToCart={onAddToCart}
             {...item}
           />
