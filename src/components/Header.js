@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import AppContext from '../context';
+
+import { useCart } from '../hooks/useCart';
 
 const Header = ({ onClickCart }) => {
-  const { cartItems } = React.useContext(AppContext);
-  const totalPrice = cartItems.reduce((sum, obj) => sum + obj.price, 0);
+  const { totalPrice } = useCart();
 
   return (
     <header className="d-flex justify-between align-center flex-wrap p-40">
