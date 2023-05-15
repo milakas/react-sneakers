@@ -58,43 +58,6 @@ header {
   }
 }
 
-.overlay {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.05);
-  z-index: 1;
-}
-
-.drawer {
-  position: fixed;
-  right: 0;
-  top: 0;
-
-  display: flex;
-  flex-direction: column;
-  width: 420px;
-  height: 100%;
-  padding: 30px;
-  background: #fff;
-  box-shadow: -10px 4px 24px rgba(0, 0, 0, 0.01);
-
-  .items {
-    overflow: auto;
-    margin-bottom: 50px;
-  }
-
-  h2 {
-    margin: 0;
-  }
-
-  .items {
-    flex: 1;
-  }
-}
-
 .cartTotalBlock {
   ul {
     margin-bottom: 40px !important;

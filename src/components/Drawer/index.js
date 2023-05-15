@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import Info from './Info';
-import { useCart } from '../hooks/useCart';
+import Info from '../Info';
+import { useCart } from '../../hooks/useCart';
+
+import styles from './Drawer.module.scss';
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-const Drawer = ({ onClose, items = [], onRemove }) => {
+const Drawer = ({ onClose, items = [], onRemove, opened }) => {
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     return () => {
@@ -45,8 +47,10 @@ const Drawer = ({ onClose, items = [], onRemove }) => {
   };
 
   return (
-    <div className="overlay">
-      <div className="drawer">
+    <div
+      className={`${styles.overlay} ${opened ? styles.overlayVisible : ''} `}
+    >
+      <div className={`${styles.drawer}`}>
         <h2 className="mb-30 d-flex justify-between">
           Корзина
           <img
