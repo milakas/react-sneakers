@@ -1,0 +1,13 @@
+@mixin adaptiv-bg-height($pcSize, $mobSize) {
+  $maxWidth: 1080;
+  $addSize: $pcSize - $mobSize;
+  $addMobSize: $addSize + $addSize * 0.7;
+  @media screen and (max-width: 767px) {
+    height: calc(
+      #{$mobSize + px} + #{$addMobSize} * ((100vw - 320px) / #{$maxWidth})
+    );
+  }
+  @media screen and (min-width: 767px) {
+    height: calc(#{$mobSize + px} + #{$addSize} * (100vw / #{$maxWidth}));
+  }
+}
