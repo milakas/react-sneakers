@@ -1,0 +1,46 @@
+@import '../../scss/variables';
+
+.page-favourites {
+  position: relative;
+  padding: $padding-desktop;
+  padding-top: $header-height-desktop;
+  height: 100%;
+  @media screen and (max-width: 767px) {
+    padding: $padding-mobile;
+    padding-top: $header-height-desktop;
+  }
+
+  &__wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 40px;
+  }
+
+  &__title {
+    flex: 1;
+    margin: 0;
+    font-size: 25px;
+    transition: font-size ease-in-out 0.3s;
+    @media screen and (max-width: 575px) {
+      font-size: 20px;
+    }
+  }
+
+  & .MuiGrid-root {
+    position: relative;
+  }
+
+  button {
+    position: absolute;
+    top: 30px;
+    right: 15px;
+
+    svg {
+      @media screen and (max-width: 575px) {
+        width: 18px;
+        height: auto;
+      }
+    }
+  }
+}

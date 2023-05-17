@@ -3,6 +3,9 @@ import axios from 'axios';
 
 import Info from '../Info';
 import { useCart } from '../../hooks/useCart';
+// import bemCreator from '../bemCreator';
+
+// const cn = bemCreator('component-header');
 
 import styles from './Drawer.module.scss';
 
@@ -85,11 +88,6 @@ const Drawer = ({ onClose, items = [], onRemove, opened }) => {
                   <span>Итого:</span>
                   <div></div>
                   <b>{totalPrice} руб.</b>
-                </li>
-                <li>
-                  <span>Налог 5%:</span>
-                  <div></div>
-                  <b>{(totalPrice / 100) * 5} руб.</b>
                 </li>
               </ul>
               <button
