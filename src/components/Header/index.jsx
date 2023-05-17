@@ -11,7 +11,7 @@ import AppContext from '../../context';
 
 import './Header.scss';
 
-const cn = bemCreator('component-header');
+const cn = bemCreator('header');
 
 const Header = ({ onClickCart }) => {
   const { cartItems } = React.useContext(AppContext);
