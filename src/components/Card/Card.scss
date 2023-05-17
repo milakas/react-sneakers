@@ -2,7 +2,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
   padding: 10px;
+  min-height: 260px;
   border-radius: 10px;
   transition: box-shadow 0.2 ease-in-out, transform 0.2s ease-in-out;
 
