@@ -64,5 +64,8 @@
     background-position: top;
     background-size: contain;
     background-repeat: no-repeat;
+    @media screen and (min-width: 1080px) {
+      height: 300px !important;
+    }
   }
 }
