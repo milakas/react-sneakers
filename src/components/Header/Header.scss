@@ -1,0 +1,81 @@
+@import '../../scss/variables';
+
+.component-header {
+  position: fixed;
+  top: 0;
+
+  z-index: 3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: $padding-desktop;
+  width: 100%;
+  max-width: 1080px;
+  height: $header-height-desktop;
+  background-color: $primary-bgc;
+  box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.05);
+
+  transition: padding 0.3s ease-in-out;
+  @media screen and (max-width: 767px) {
+    height: $header-height-mobile;
+    padding: $padding-mobile;
+  }
+
+  a {
+    @media screen and (max-width: 575px) {
+      flex: 1 0;
+    }
+  }
+
+  &__wrap-logo {
+    @media screen and (max-width: 767px) {
+      flex: 1;
+    }
+  }
+
+  &__title {
+    font-size: 30px;
+    text-transform: uppercase;
+    transition: font-size ease-in-out 0.3s;
+    @media screen and (max-width: 767px) {
+      font-size: 25px;
+    }
+    @media screen and (max-width: 575px) {
+      font-size: 15px;
+    }
+  }
+
+  &__links {
+    display: flex;
+    gap: 15px;
+    @media screen and (max-width: 575px) {
+      gap: 8px;
+    }
+  }
+
+  &__link {
+    cursor: pointer;
+
+    .css-i4bv87-MuiSvgIcon-root {
+      font-size: 1.7rem;
+      transition: font-size ease-in-out 0.3s;
+      @media screen and (max-width: 767px) {
+        font-size: 25px;
+      }
+      @media screen and (max-width: 575px) {
+        font-size: 20px;
+      }
+    }
+    .css-to4x1n-MuiBadge-badge {
+      transition: font-size ease-in-out 0.3s;
+      @media screen and (max-width: 767px) {
+        padding: 0 3px;
+        height: 15px;
+        min-width: 15px;
+        font-size: 8px;
+      }
+    }
+  }
+}
