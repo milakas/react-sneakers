@@ -3,8 +3,8 @@ import Drawer from './components/Drawer';
 import Header from './components/Header';
 import axios from 'axios';
 import { Route, Routes } from 'react-router-dom';
-import Home from './pages/Home';
-import Favourites from './pages/Favourites';
+import Home from './pages/Home/Home';
+import Favourites from './pages/Favourites/Favourites';
 import AppContext from './context';
 import Orders from './pages/Orders';
 
@@ -17,7 +17,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchData() {
+    const fetchData = async () => {
       try {
         const [cartItemsResponse, favouritesResponse, itemsResponse] =
           await Promise.all([
@@ -31,10 +31,10 @@ function App() {
         setFavorites(favouritesResponse.data);
         setItems(itemsResponse.data);
       } catch (error) {
-        alert('Ошибка при запросе данных"');
+        alert('Ошибка при запросе данных.');
         console.error(error);
       }
-    }
+    };
     fetchData();
   }, []);
 
@@ -90,28 +90,55 @@ function App() {
     console.log('onFavourite', obj);
     try {
       const findItems = favorites.find(
-        (favObj) => favObj.title === obj.title && favObj.price === obj.price
+        (favObj) => Number(favObj.parentId) === Number(obj.id)
       );
       if (findItems) {
         await axios.delete(
           `https://644fcf81ba9f39c6ab6cfe47.mockapi.io/favourite/${findItems.id}`
         );
         setFavorites((prev) =>
-          prev.filter(
-            (item) => item.title !== obj.title && item.price === obj.price
-          )
+          prev.filter((item) => Number(item.parentId) !== obj.id)
         );
       } else {
+        setFavorites((prev) => [...prev, obj]);
+
         const { data } = await axios.post(
           'https://644fcf81ba9f39c6ab6cfe47.mockapi.io/favourite',
           obj
         );
-        setFavorites((prev) => [...prev, data]);
+        setFavorites((prev) =>
+          prev.map((item) => {
+            if (item.parentId === data.parentId) {
+              return {
+                ...item,
+                id: data.id,
+              };
+            }
+            return item;
+          })
+        );
 
         console.log('data', data);
       }
     } catch (error) {
       alert('Не удалось добавить товар в избранное.');
+      console.error(error);
+    }
+  };
+
+  const onRemoveFavourite = async (obj) => {
+    console.log('remove', obj);
+    try {
+      setFavorites((prev) =>
+        prev.filter((item) => Number(item.parentId) !== obj.parentId)
+      );
+      console.log(favorites);
+      await axios.delete(
+        `https://644fcf81ba9f39c6ab6cfe47.mockapi.io/favourite/${obj.id}`
+      );
+      console.log(favorites);
+    } catch (error) {
+      alert('Не удалось удалить товар из избранного.');
       console.error(error);
     }
   };
@@ -149,27 +176,36 @@ function App() {
           onRemove={onRemoveItem}
           opened={cartOpened}
         />
-        <Header onClickCart={() => setCartOpened(true)} />
-        <Routes>
-          <Route
-            path="/"
-            exact="true"
-            element={
-              <Home
-                items={items}
-                cartItems={cartItems}
-                searchValue={searchValue}
-                setSearchValue={setSearchValue}
-                onChangeSearchValue={onChangeSearchValue}
-                onFavourite={onFavourite}
-                onAddToCart={onAddToCart}
-                isLoading={isLoading}
-              />
-            }
-          />
-          <Route path="/favourites" exact="true" element={<Favourites />} />
-          <Route path="/orders" exact="true" element={<Orders />} />
-        </Routes>
+        <Header
+          cartOpened={cartOpened}
+          onClickCart={() => setCartOpened(true)}
+        />
+        <main className={`main-content ${cartOpened ? 'blur' : ''}`}>
+          <Routes>
+            <Route
+              path="/"
+              exact="true"
+              element={
+                <Home
+                  items={items}
+                  cartItems={cartItems}
+                  searchValue={searchValue}
+                  setSearchValue={setSearchValue}
+                  onChangeSearchValue={onChangeSearchValue}
+                  onFavourite={onFavourite}
+                  onAddToCart={onAddToCart}
+                  isLoading={isLoading}
+                />
+              }
+            />
+            <Route
+              path="/favourites"
+              exact="true"
+              element={<Favourites onRemoveFavourite={onRemoveFavourite} />}
+            />
+            <Route path="/orders" exact="true" element={<Orders />} />
+          </Routes>
+        </main>
       </div>
     </AppContext.Provider>
   );

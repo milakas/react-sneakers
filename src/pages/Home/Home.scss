@@ -1,0 +1,72 @@
+@import '../../scss/variables';
+@import './mixin';
+
+.page-home {
+  position: relative;
+
+  &__wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+
+    input {
+      @media screen and (max-width: 767px) {
+        font-size: 15px;
+      }
+      @media screen and (max-width: 575px) {
+        font-size: 12px;
+      }
+    }
+
+    .css-1orzy9s {
+      @media screen and (max-width: 767px) {
+        width: auto;
+      }
+    }
+  }
+
+  &__title {
+    flex: 1;
+    font-size: 25px;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: font-size ease-in-out 0.3s;
+    @media screen and (max-width: 767px) {
+      font-size: 20px;
+    }
+    @media screen and (max-width: 575px) {
+      font-size: 13px;
+    }
+  }
+
+  &__search-text {
+    flex: 1;
+    font-size: 18px;
+    transition: font-size ease-in-out 0.3s;
+
+    @media screen and (max-width: 575px) {
+      font-size: 12px;
+    }
+  }
+
+  &__bg-image {
+    margin-bottom: 30px;
+    border-radius: $border-radius;
+    @include adaptiv-bg-height(300, 100);
+
+    background-image: url('./img/bg-image.png');
+    background-color: #fff;
+    background-position: top;
+    background-size: contain;
+    background-repeat: no-repeat;
+
+    @media screen and (max-width: 767px) {
+      margin-bottom: 0;
+    }
+
+    @media screen and (min-width: 1080px) {
+      height: 300px !important;
+    }
+  }
+}

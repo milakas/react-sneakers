@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import CloseIcon from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 import Info from '../Info';
+import bemCreator from '../bemCreator';
 import { useCart } from '../../hooks/useCart';
+import { useBodyScrollLock } from '../../hooks/useBodyScrollLock';
 
-import styles from './Drawer.module.scss';
+import './Drawer.scss';
 
+const cn = bemCreator('component-drawer');
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const Drawer = ({ onClose, items = [], onRemove, opened }) => {
@@ -14,9 +20,10 @@ const Drawer = ({ onClose, items = [], onRemove, opened }) => {
   const [isOrderComplete, setIsOrderComplete] = React.useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  useBodyScrollLock(opened);
+
   const onClickOrder = async () => {
     try {
-      setIsLoading(true);
       const { data } = await axios.post(
         'https://644fcf81ba9f39c6ab6cfe47.mockapi.io/order',
         { items: cartItems }
@@ -33,65 +40,53 @@ const Drawer = ({ onClose, items = [], onRemove, opened }) => {
         await delay(1000);
       }
     } catch (err) {
-      alert('Не удалось создать заказ!');
+      alert(err.message);
+    } finally {
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
   };
 
   return (
-    <div
-      className={`${styles.overlay} ${opened ? styles.overlayVisible : ''} `}
-    >
-      <div className={`${styles.drawer}`}>
-        <h2 className="mb-30 d-flex justify-between">
-          Корзина
-          <img
-            onClick={onClose}
-            className="cu-p"
-            src="/img/btn-remove.svg"
-            alt="Close"
-          />
-        </h2>
+    <div className={`${cn('overlay')} ${opened ? cn('overlay--visible') : ''}`}>
+      <div className={`${cn()} ${opened ? cn('active') : ''}`}>
+        <div className={cn('wrap')}>
+          <h2 className={cn('title')}>Корзина</h2>
+          <IconButton onClick={onClose} title="Закрыть">
+            <CloseIcon color="inherit" />
+          </IconButton>
+        </div>
 
         {items.length > 0 ? (
           <>
-            <div className="items flex">
+            <div className={cn('items')}>
               {items.map((obj) => (
-                <div
-                  key={obj.id}
-                  className="cartItem d-flex align-center mb-20"
-                >
+                <div key={obj.id} className={cn('item')}>
                   <div
                     style={{ backgroundImage: `url(${obj.imageUrl})` }}
-                    className="cartItemImg"
+                    className={cn('image')}
                   ></div>
-                  <div className="flex mr-20">
-                    <p className="mb-5">{obj.title}</p>
-                    <b>{obj.price} руб.</b>
+                  <div className={cn('item-info')}>
+                    <h3 className={cn('item-title')}>{obj.title}</h3>
+                    <span className={cn('item-price')}>{obj.price} ₽</span>
                   </div>
-                  <img
-                    onClick={() => onRemove(obj.id)}
-                    className="removeBtn"
-                    src="/img/btn-remove.svg"
-                    alt="Remove"
-                  />
+                  <div>
+                    <IconButton
+                      onClick={() => onRemove(obj.id)}
+                      title="Закрыть"
+                    >
+                      <DeleteOutlineIcon />
+                    </IconButton>
+                  </div>
                 </div>
               ))}
             </div>
-            <div className="cartTotalBlock">
-              <ul>
-                <li>
-                  <span>Итого:</span>
-                  <div></div>
-                  <b>{totalPrice} руб.</b>
-                </li>
-                <li>
-                  <span>Налог 5%:</span>
-                  <div></div>
-                  <b>{(totalPrice / 100) * 5} руб.</b>
-                </li>
-              </ul>
+
+            <div>
+              <div className={cn('bottom-text')}>
+                <span className={cn('total-price')}> Итого:</span>
+                <div></div>
+                <span className={cn('total-price')}>{totalPrice} ₽</span>
+              </div>
               <button
                 disabled={isLoading}
                 onClick={onClickOrder}
