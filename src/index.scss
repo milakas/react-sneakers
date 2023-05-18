@@ -27,7 +27,7 @@ body {
 
   @media screen and (max-width: 767px) {
     padding: $padding-mobile;
-    padding-top: $header-height-desktop;
+    padding-top: calc($header-height-mobile + 20px);
   }
 }
 
@@ -52,103 +52,29 @@ body {
   cursor: pointer;
 }
 
-.cartTotalBlock {
-  ul {
-    margin-bottom: 40px !important;
-  }
-  li {
-    display: flex;
-    align-items: flex-end;
-    margin-bottom: 15px;
-  }
-
-  div {
-    position: relative;
-    top: -4px;
-    margin: 0 7px;
-    flex: 1;
-    height: 1px;
-    border-bottom: 1px dashed #dfdfdf;
-  }
-
-  .greenButton {
-    position: relative;
-
-    &:disabled {
-      -webkit-animation: button-loading 0.8s ease-in-out infinite;
-      animation: button-loading 0.8s ease-in-out infinite;
-    }
-
-    &:hover {
-      img {
-        transform: translateX(5px);
-      }
-    }
-
-    img {
-      position: absolute;
-      right: 30px;
-      top: 20px;
-      transition: transform 0.15s ease-in-out;
-    }
-  }
-}
-
-.cartItem {
-  border: 1px solid #f3f3f3;
+.greenButton {
+  width: 100%;
+  height: 55px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  background-color: #9dd558;
   border-radius: $border-radius;
-  overflow: hidden;
-  padding: 20px;
+  border: 0;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
 
-  .cartItemImg {
-    height: 70px;
-    width: 70px;
-    background-size: contain;
-    background-position: 0 -3px;
-    background-repeat: no-repeat;
-    margin-right: 20px;
+  &:disabled {
+    background-color: #bebebe;
+    cursor: default;
   }
 
-  p {
-    font-size: 16px;
+  &:hover {
+    background-color: lighten($color: #9dd558, $amount: 10%);
   }
 
-  b {
-    font-size: 13px;
-  }
-
-  .removeBtn {
-    opacity: 0.5;
-    cursor: pointer;
-    transition: opacity 0.2s ease-in-out;
-
-    &:hover {
-      opacity: 1;
-    }
-  }
-}
-
-@-webkit-keyframes button-loading {
-  0% {
-    overflow: 1;
-  }
-  50% {
-    opacity: 0.7;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes button-loading {
-  0% {
-    overflow: 1;
-  }
-  50% {
-    opacity: 0.7;
-  }
-  100% {
-    opacity: 1;
+  &:active {
+    background-color: darken($color: #9dd558, $amount: 10);
   }
 }
 
@@ -177,31 +103,5 @@ body {
       margin-right: 15px;
       transition: transform 0.15s ease-in-out;
     }
-  }
-}
-
-.greenButton {
-  width: 100%;
-  height: 55px;
-  font-size: 16px;
-  font-weight: 600;
-  color: #fff;
-  background-color: #9dd558;
-  border-radius: $border-radius;
-  border: 0;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-
-  &:disabled {
-    background-color: #bebebe;
-    cursor: default;
-  }
-
-  &:hover {
-    background-color: lighten($color: #9dd558, $amount: 10%);
-  }
-
-  &:active {
-    background-color: darken($color: #9dd558, $amount: 10);
   }
 }
