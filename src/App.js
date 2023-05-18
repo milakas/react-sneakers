@@ -176,7 +176,10 @@ function App() {
           onRemove={onRemoveItem}
           opened={cartOpened}
         />
-        <Header onClickCart={() => setCartOpened(true)} />
+        <Header
+          cartOpened={cartOpened}
+          onClickCart={() => setCartOpened(true)}
+        />
         <main className={`main-content ${cartOpened ? 'blur' : ''}`}>
           <Routes>
             <Route
