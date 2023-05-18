@@ -38,8 +38,8 @@ const Home = ({
   };
 
   return (
-    <div className={cn()}>
-      <div className={cn('container')}></div>
+    <section className={cn()}>
+      <div className={cn('bg-image')}></div>
       <div className={cn('wrap')}>
         <div className={cn('title-wrap')}>
           <h1 className={cn('title')}>Все кроссовки</h1>
@@ -72,7 +72,7 @@ const Home = ({
           {renderItems()}
         </Grid>
       </div>
-    </div>
+    </section>
   );
 };
 

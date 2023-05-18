@@ -13,14 +13,14 @@ import './Header.scss';
 
 const cn = bemCreator('header');
 
-const Header = ({ onClickCart }) => {
+const Header = ({ onClickCart, cartOpened }) => {
   const { cartItems } = React.useContext(AppContext);
   const sumCartItems = cartItems.reduce((minId, item) => {
     return item.id > minId ? item.id : minId;
   }, 0);
 
   return (
-    <header className={cn()}>
+    <header className={`${cn()}${cartOpened ? ' blur' : ''}`}>
       <Link to="/" exact="true">
         <div className={cn('wrap-logo')}>
           <h3 className={cn('title')}>React Sneakers</h3>

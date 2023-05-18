@@ -17,7 +17,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchData() {
+    const fetchData = async () => {
       try {
         const [cartItemsResponse, favouritesResponse, itemsResponse] =
           await Promise.all([
@@ -34,7 +34,7 @@ function App() {
         alert('Ошибка при запросе данных.');
         console.error(error);
       }
-    }
+    };
     fetchData();
   }, []);
 
@@ -177,7 +177,7 @@ function App() {
           opened={cartOpened}
         />
         <Header onClickCart={() => setCartOpened(true)} />
-        <main>
+        <main className={`main-content ${cartOpened ? 'blur' : ''}`}>
           <Routes>
             <Route
               path="/"

@@ -15,7 +15,7 @@
   max-width: 1080px;
   height: $header-height-desktop;
   background-color: $primary-bgc;
-  box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid #eaeaea;
 
   transition: padding 0.3s ease-in-out;
   @media screen and (max-width: 767px) {
