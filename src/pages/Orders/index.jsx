@@ -19,7 +19,7 @@ const Orders = () => {
         const { data } = await axios.get(
           'https://644fcf81ba9f39c6ab6cfe47.mockapi.io/order'
         );
-        setOrders(data.reduce((prev, obj) => [...prev, ...obj.items], []));
+        setOrders(data);
         setIsLoading(false);
       } catch (error) {
         alert('Ошибка при запросе заказов');
@@ -27,14 +27,6 @@ const Orders = () => {
       }
     })();
   }, []);
-
-  const groupedOrders = orders.reduce((acc, item) => {
-    if (!acc[item.id]) {
-      acc[item.id] = [];
-    }
-    acc[item.id].push(item);
-    return acc;
-  }, {});
 
   return (
     <section className={cn()}>
@@ -54,14 +46,14 @@ const Orders = () => {
             </Grid>
           </div>
         ))
-      ) : Object.keys(groupedOrders).length > 0 ? (
-        Object.keys(groupedOrders).map((orderId) => (
-          <div key={orderId}>
-            <h3>Заказ № {orderId}</h3>
+      ) : orders.length > 0 ? (
+        orders.map((order, index) => (
+          <div key={index}>
+            <h3>Заказ № {order.id}</h3>
             <Grid container spacing={2}>
-              {groupedOrders[orderId].map((product) => (
-                <Grid key={product.parentId} item xs={6} sm={4} md={4} lg={4}>
-                  <Card {...product} />
+              {order.items.map((item, index) => (
+                <Grid key={index} item xs={6} sm={4} md={4} lg={4}>
+                  <Card {...item} />
                 </Grid>
               ))}
             </Grid>

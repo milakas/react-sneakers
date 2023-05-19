@@ -87,21 +87,19 @@ function App() {
   };
 
   const onFavourite = async (obj) => {
-    console.log('onFavourite', obj);
     try {
       const findItems = favorites.find(
         (favObj) => Number(favObj.parentId) === Number(obj.id)
       );
       if (findItems) {
-        await axios.delete(
-          `https://644fcf81ba9f39c6ab6cfe47.mockapi.io/favourite/${findItems.id}`
-        );
         setFavorites((prev) =>
           prev.filter((item) => Number(item.parentId) !== obj.id)
         );
+        await axios.delete(
+          `https://644fcf81ba9f39c6ab6cfe47.mockapi.io/favourite/${findItems.id}`
+        );
       } else {
         setFavorites((prev) => [...prev, obj]);
-
         const { data } = await axios.post(
           'https://644fcf81ba9f39c6ab6cfe47.mockapi.io/favourite',
           obj
@@ -117,8 +115,6 @@ function App() {
             return item;
           })
         );
-
-        console.log('data', data);
       }
     } catch (error) {
       alert('Не удалось добавить товар в избранное.');
